@@ -24,11 +24,11 @@ function fetchPacientes() {
                         <td>${paciente.domicilio.calle} ${paciente.domicilio.numero} (${paciente.domicilio.localidad} - ${paciente.domicilio.provincia})</td>
 
                         <td>
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarPaciente" onclick="editPaciente(${paciente.id}, 
+                            <button class="btn btn-sm" style="background-color: #a6dcef;" data-bs-toggle="modal" data-bs-target="#editarPaciente" onclick="editPaciente(${paciente.id},
                                 '${paciente.nombre}', '${paciente.apellido}', '${paciente.dni}', '${paciente.fechaIngreso}', '${paciente.domicilio.id}',
                                 '${paciente.domicilio.calle}', '${paciente.domicilio.numero}', '${paciente.domicilio.localidad}', 
-                                '${paciente.domicilio.provincia}')">Modificar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deletePaciente(${paciente.id})">Eliminar</button>
+                                '${paciente.domicilio.provincia}')"><i class="fas fa-edit mx-2"></i>Modificar</button>
+                            <button class=" mx-4 btn btn-sm" style="background-color: #ef9a9a;" onclick="deletePaciente(${paciente.id})"><i class="fas fa-trash-alt mx-2"></i>Eliminar</button>
                         </td>
                     `;
 

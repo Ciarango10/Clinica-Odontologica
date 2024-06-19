@@ -55,9 +55,9 @@ function fetchTurnos() {
                         <td>${turno.fecha}</td>
 
                         <td>
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarTurno" onclick="editTurno(${turno.id}, 
-                                '${turno.paciente.id}', '${turno.odontologo.id}', '${turno.fecha}')">Modificar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteTurno(${turno.id})">Eliminar</button>
+                            <button class="btn btn-sm"style="background-color: #a6dcef;" data-bs-toggle="modal" data-bs-target="#editarTurno" onclick="editTurno(${turno.id},
+                                '${turno.paciente.id}', '${turno.odontologo.id}', '${turno.fecha}')"><i class="fas fa-edit mx-2"></i>Modificar</button>
+                            <button class="mx-4 btn btn-sm"style="background-color: #ef9a9a;" onclick="deleteTurno(${turno.id})"><i class="fas fa-trash-alt mx-2"></i>Eliminar</button>
                         </td>
                     `;
 

@@ -20,8 +20,8 @@ function fetchOdontologos() {
                         <td>${odontologo.apellido}</td>
                         <td>${odontologo.nroMatricula}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarOdontologo" onclick="editOdontologo(${odontologo.id}, '${odontologo.nombre}', '${odontologo.apellido}', '${odontologo.nroMatricula}')">Modificar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteOdontologo(${odontologo.id})">Eliminar</button>
+                            <button class="btn btn-sm" style="background-color: #a6dcef;" data-bs-toggle="modal" data-bs-target="#editarOdontologo" onclick="editOdontologo(${odontologo.id}, '${odontologo.nombre}', '${odontologo.apellido}', '${odontologo.nroMatricula}')"><i class="fas fa-edit px-2"></i>Modificar</button>
+                            <button class="mx-4 btn btn-sm" style="background-color: #ef9a9a;" onclick="deleteOdontologo(${odontologo.id})"><i class="fas fa-trash-alt px-2"></i>Eliminar</button>
                         </td>
                     `;
 
