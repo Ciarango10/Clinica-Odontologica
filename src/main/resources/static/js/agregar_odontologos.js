@@ -7,8 +7,6 @@ form.addEventListener("submit", function (event) {
   const apellido = document.getElementById("apellido").value;
   const matricula = document.getElementById("matricula").value;
 
-  // llamando al endpoint de agregar
-
   fetch(`/odontologos`, {
     method: "POST",
     headers: {
@@ -16,13 +14,28 @@ form.addEventListener("submit", function (event) {
     },
     body: JSON.stringify({ nombre, apellido, nroMatricula: matricula }),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log(data);
-      alert("Odontólogo agregado con éxito");
+      Swal.fire({
+        icon: 'success',
+        title: 'Odontólogo agregado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
       form.reset(); // Resetear el formulario
     })
     .catch((error) => {
       console.error("Error agregando odontólogo:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al agregar el odontólogo',
+      });
     });
 });
