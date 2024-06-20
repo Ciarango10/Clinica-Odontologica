@@ -44,13 +44,23 @@ form.addEventListener("submit", function (event) {
 
   // Validamos que se elija un odontólogo existente
   if(odontologo_id == 0) {
-    alert("El odontólogo es requerido");
+    Swal.fire({
+      icon: 'warning',
+      title: 'El odontólogo es requerido',
+      showConfirmButton: false,
+      timer: 2500
+    });
     return;
   }
 
   // Validamos que se elija un paciente existente
   if(paciente_id == 0) {
-    alert("El paciente es requerido");
+    Swal.fire({
+      icon: 'warning',
+      title: 'El paciente es requerido',
+      showConfirmButton: false,
+      timer: 2500
+    });
     return;
   }
 
@@ -66,11 +76,21 @@ form.addEventListener("submit", function (event) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      alert("Turno agregado con éxito");
+      Swal.fire({
+        icon: 'success',
+        title: 'Turno agregado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
       form.reset(); // Resetear el formulario
     })
     .catch((error) => {
       console.error("Error agregando al turno:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al agregar el turno',
+      });
     });
 });
 

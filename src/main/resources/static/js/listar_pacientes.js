@@ -94,30 +94,62 @@ form.addEventListener("submit", function (event) {
             var modalElement = document.getElementById('editarPaciente');
             var modalInstance = bootstrap.Modal.getInstance(modalElement);
             modalInstance.hide();
-            alert("Paciente modificado con éxito");
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'Paciente modificado con éxito',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
         })
         .catch((error) => {
             console.error("Error modificando Paciente:", error);
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'Hubo un problema al modificar el paciente',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
         });
 });
 
 // Eliminar un paciente
 function deletePaciente(id) {
-    if(confirm("¿Está seguro de eliminar el Paciente?")) {
-        // llamando al endpoint de eliminar 
-        fetch(`/pacientes/${id}`, {
-            method: "DELETE"
-        })
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: "No podrá revertir esto.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if(result.isConfirmed) {
+            fetch(`/pacientes/${id}`, {
+                method: "DELETE"
+            })
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 fetchPacientes();
-                alert("Paciente eliminado con éxito");
+                Swal.fire(
+                    'Eliminado',
+                    'El Paciente ha sido eliminado.',
+                    'success'
+                );
             })
             .catch((error) => {
                 console.error("Error eliminando Paciente:", error);
+                Swal.fire(
+                    'Error',
+                    'Hubo un problema al eliminar el paciente.',
+                    'error'
+                );
             });
-    }
+        }
+    });
 }
 
 fetchPacientes();

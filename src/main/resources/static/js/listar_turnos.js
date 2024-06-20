@@ -91,13 +91,23 @@ form.addEventListener("submit", function (event) {
 
     // Validamos que se elija un odontólogo existente
     if(odontologo_id == 0) {
-        alert("El odontólogo es requerido");
+        Swal.fire({
+          icon: 'warning',
+          title: 'El odontólogo es requerido',
+          showConfirmButton: false,
+          timer: 2500
+        });
         return;
     }
 
     // Validamos que se elija un paciente existente
     if(paciente_id == 0) {
-        alert("El paciente es requerido");
+        Swal.fire({
+          icon: 'warning',
+          title: 'El paciente es requerido',
+          showConfirmButton: false,
+          timer: 2500
+        });
         return;
     }
 
@@ -109,37 +119,69 @@ form.addEventListener("submit", function (event) {
         },
         body: JSON.stringify({ paciente_id, odontologo_id, fecha })
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            fetchTurnos();
-            var modalElement = document.getElementById('editarTurno');
-            var modalInstance = bootstrap.Modal.getInstance(modalElement);
-            modalInstance.hide();
-            alert("Turno modificado con éxito");
-        })
-        .catch((error) => {
-            console.error("Error modificando Turno:", error);
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        fetchTurnos();
+        var modalElement = document.getElementById('editarTurno');
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'Turno modificado con éxito',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
         });
+    })
+    .catch((error) => {
+        console.error("Error modificando Turno:", error);
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: 'Hubo un problema al modificar el turno',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+        });
+    });
 });
 
 // Eliminar un Turno
 function deleteTurno(id) {
-    if(confirm("¿Está seguro de eliminar el Turno?")) {
-        // llamando al endpoint de eliminar 
-        fetch(`/turnos/${id}`, {
-            method: "DELETE"
-        })
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: "No podrá revertir esto.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if(result.isConfirmed) {
+            fetch(`/turnos/${id}`, {
+                method: "DELETE"
+            })
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
                 fetchTurnos();
-                alert("Turno eliminado con éxito");
+                Swal.fire(
+                    'Eliminado',
+                    'El Turno ha sido eliminado.',
+                    'success'
+                );
             })
             .catch((error) => {
                 console.error("Error eliminando Turno:", error);
+                Swal.fire(
+                    'Error',
+                    'Hubo un problema al eliminar el turno.',
+                    'error'
+                );
             });
-    }
+        }
+    });
 }
 
 fetchPacientes();
